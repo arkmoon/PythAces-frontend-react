@@ -48,7 +48,7 @@ class ContractForm extends Component {
     console.log(this.state);
 
     if (!isNaN(amount) && receive && send) {
-      axios.post(`/${this.props.coin}`, { amount, receive, send })
+      axios.post(`/api/${this.props.coin}`, { amount, receive, send })
       .then(res => {
         console.log(res.data);
         if (res.data.success) {
