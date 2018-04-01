@@ -1,0 +1,16 @@
+.modal .modal-header .close {
+  position: absolute;
+  right: -1.5rem;
+  top: 0;
+  height: 3rem;
+  width: 3rem;
+  font-size: 3rem;
+  line-height: 1rem;
+  text-align: center;
+}
+
+.modal .modal-header .close span {
+  right: 0.65rem;
+  position: absolute;
+  top: 1rem;
+}

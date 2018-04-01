@@ -1,0 +1,34 @@
+.full-page-intro {
+  background-image: url("/img/background.png");
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  /* Create the parallax scrolling effect */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.full-page-container {
+  margin: 4rem 0;
+}
+
+.home-card img {
+  height: 3rem;
+  width: auto;
+}
+
+.home-card p {
+  line-height: 3rem;
+  margin: 0 0 0 1rem;
+}
+
+@media only screen and (max-width: 767px) {
+ .full-page-intro {
+    min-height: 'auto';
+  }
+
+  .full-page-container {
+    margin: 3rem 0 0;
+  }
+}
