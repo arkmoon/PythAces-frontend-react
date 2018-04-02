@@ -36,7 +36,7 @@ class Pending extends Component {
       return (
         <tr key={contract.contract}>
           <th scope="row">
-            <a href={`/api/${contract.contract}`}>{contract.contract}</a>
+            <a href={`/api/history/${contract.contract}`}>{contract.contract}</a>
           </th>
           <td>{contract.contractStatus}</td>
           <td>
