@@ -43,7 +43,7 @@ class App extends Component {
   }
 
   getPrices = () => {
-    axios.get(`/prices`)
+    axios.get(`/api/prices`)
       .then(res => {
         this.setState({
           fees: {
@@ -58,7 +58,7 @@ class App extends Component {
   }
 
   getCapacity = () => {
-    axios.get(`/capacity`)
+    axios.get(`/api/capacity`)
       .then(res => {
         this.setState({
           capacity: res.data,
