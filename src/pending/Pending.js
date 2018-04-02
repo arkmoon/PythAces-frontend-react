@@ -19,7 +19,7 @@ class Pending extends Component {
   }
 
   getContracts = () => {
-    axios.get(`/contracts`)
+    axios.get(`/api/contracts`)
       .then(res => {
         this.setState({
           contracts: res.data,
@@ -36,7 +36,7 @@ class Pending extends Component {
       return (
         <tr key={contract.contract}>
           <th scope="row">
-            <a href={`/${contract.contract}`}>{contract.contract}</a>
+            <a href={`/api/history/${contract.contract}`}>{contract.contract}</a>
           </th>
           <td>{contract.contractStatus}</td>
           <td>
