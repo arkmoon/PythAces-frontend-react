@@ -46,7 +46,7 @@ class CoinDescription extends Component {
                     <button
                       type="button"
                       className="btn btn-lg btn-block btn-primary waves-effect waves-light"
-                      name="dkapu"
+                      name={key}
                       onClick={() => {handleCoinSelect(key);}}>Select {key}{(key === selected) ? ' (selected)' : ''}</button>
                   </div>
                 </div>

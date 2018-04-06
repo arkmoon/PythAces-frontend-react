@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import Contract from '../contract/Contract';
 import Timer from '../timer/Timer';
 import 'mdbootstrap/css/bootstrap.css';
 import 'mdbootstrap/css/mdb.css';
@@ -11,11 +12,34 @@ class Pending extends Component {
 
     this.state = {
       contracts: [],
+      contract: {
+        channel: '',
+        coin: '',
+        receivingAddress: '',
+        receivingAmount: 0,
+        sendingAddress: '',
+        sendingAmount: 0,
+        vendorField: '',
+      }
     }
   }
 
   componentWillMount() {
     this.getContracts();
+  }
+
+  showContract = (contract) => {
+    this.setState({
+      contract: {
+        channel: contract.channel,
+        coin: contract.coin,
+        receivingAddress: contract.receivingAddress,
+        receivingAmount: contract.receivingAmount,
+        sendingAddress: contract.sendingAddress,
+        sendingAmount: contract.sendingAmount,
+        vendorField: contract.contract,
+      }
+    });
   }
 
   getContracts = () => {
@@ -36,7 +60,12 @@ class Pending extends Component {
       return (
         <tr key={contract.contract}>
           <th scope="row">
-            <a href={`/api/history/${contract.contract}`}>{contract.contract}</a>
+            <button
+              aria-label={`Show contract for ${contract.sendingAddress}`}
+              className="btn btn-primary btn-small"
+              data-toggle="modal"
+              data-target="#contractModal"
+              onClick={() => {this.showContract(contract);}}>{contract.sendingAddress}</button>
           </th>
           <td>{contract.contractStatus}</td>
           <td>
@@ -51,6 +80,31 @@ class Pending extends Component {
     return (
       (contracts !== undefined && contracts.length > 0) ?
         <div className="row">
+          <div className="modal fade" id="contractModal" tabIndex={-1} role="dialog" aria-labelledby="modalTitle" aria-hidden="true">
+            <div className="modal-dialog modal-lg" role="document">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title" id="modalTitle">Pay This Contract</h5>
+                  <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div className="modal-body text-center">
+                  <Contract
+                    address={this.state.contract.sendingAddress}
+                    amount={this.state.contract.sendingAmount}
+                    channel={this.state.contract.channel}
+                    coin={this.state.contract.coin}
+                    receive={this.state.contract.receivingAmount}
+                    vendorField={this.state.contract.vendorField}
+                  />
+                </div>
+                <div className="modal-footer">
+                  <button type="button" className="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
           <div className="col-md-12 mb-4">
             <div className="card">
               <div className="card-body">
@@ -59,7 +113,7 @@ class Pending extends Component {
                 <table className="table">
                   <thead>
                     <tr>
-                      <th>Contract ID</th>
+                      <th>Sending Address</th>
                       <th>Status</th>
                       <th>Time Left</th>
                     </tr>

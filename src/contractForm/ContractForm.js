@@ -15,8 +15,10 @@ class ContractForm extends Component {
       contract: {
         address: '',
         amount: 0,
+        channel: '',
+        receive: 0,
         showContract: false,
-        vendorfield: '',
+        vendorField: '',
       }
     }
   }
@@ -45,12 +47,9 @@ class ContractForm extends Component {
       disableSubmit: true,
     });
 
-    console.log(this.state);
-
     if (!isNaN(amount) && receive && send) {
       axios.post(`/api/${this.props.coin}`, { amount, receive, send })
       .then(res => {
-        console.log(res.data);
         if (res.data.success) {
           this.setState({
             ...this.state,
@@ -58,6 +57,7 @@ class ContractForm extends Component {
             contract: {
               address: res.data.address,
               amount: res.data.amount,
+              channel: res.data.channel,
               receive: res.data.receive,
               showContract: true,
               vendorField: res.data.vendorField,
@@ -67,6 +67,14 @@ class ContractForm extends Component {
         else {
           this.setState({
             ...this.state,
+            contract: {
+              address: '',
+              amount: 0,
+              channel: '',
+              receive: 0,
+              showContract: false,
+              vendorField: '',
+            },
             error: res.data.msg,
           });
         }
@@ -78,7 +86,7 @@ class ContractForm extends Component {
   }
 
   render() {
-    const { coin = '' } = this.props;
+    const { channel = '', coin = '' } = this.props;
     const { disableSubmit = false, error = '' } = this.state;
     const { showContract, address, amount, receive, vendorField } = this.state.contract;
 
@@ -88,15 +96,12 @@ class ContractForm extends Component {
           coin ?
             <div className="row">
               <h2 className="text-center col-sm-12 text-uppercase red-text py-4 px-3">Step 2: Create a Contract</h2>
-              <div className="col-md-6 offset-md-3 mb-4">
+              <div className="col-sm-12 mb-4">
                 <div className="card">
                   <div className="card-body">
                     <form onSubmit={this.handleSubmit}>
-                      <h3 className="dark-grey-text text-center">
-                        <strong>Create an Ark Contract</strong>
-                      </h3>
                       {
-                        (coin) ? <h4 className="text-center">{coin}</h4> : null
+                        (coin) ? <h3 className="text-center">Receive {coin}</h3> : null
                       }
                       {
                         error ?
@@ -110,12 +115,12 @@ class ContractForm extends Component {
                       <div className="md-form">
                         <i className="fa fa-address-book prefix grey-text" />
                         <input type="text" id="send" name="send" className="form-control" onChange={(e) => {this.handleChange(e);}} />
-                        <label htmlFor="send">Your Ark address</label>
+                        <label htmlFor="send">{`Your ${channel} address`}</label>
                       </div>
                       <div className="md-form">
                         <i className="fa fa-address-book prefix grey-text" />
                         <input type="text" id="receive" name="receive"  className="form-control" onChange={(e) => {this.handleChange(e);}} />
-                        <label htmlFor="receive">Your {coin} address</label>
+                        <label htmlFor="receive">{`Your ${coin} address`}</label>
                       </div>
                       <div className="md-form">
                         <i className="fa fa-shopping-bag prefix grey-text" />
@@ -123,7 +128,7 @@ class ContractForm extends Component {
                         <label htmlFor="amount">Amount of {coin} you want</label>
                       </div>
                       <div className="text-center">
-                        <button type="submit" className="btn btn-primary waves-effect waves-light" disabled={(disableSubmit) ? 'disabled' : ''}>Create Ark Contract</button>
+                        <button type="submit" className="btn btn-primary waves-effect waves-light" disabled={(disableSubmit) ? 'disabled' : ''}>{`Generate ${channel} contract`}</button>
                       </div>
                     </form>
                   </div>
@@ -137,7 +142,7 @@ class ContractForm extends Component {
           showContract ?
           <div className="row">
             <h2 className="text-center col-sm-12 text-uppercase red-text py-4 px-3">Step 3: Pay Your Contract</h2>
-            <Contract address={address} amount={amount} coin={coin} receive={receive} vendorField={vendorField} />
+            <Contract address={address} amount={amount} channel={channel} coin={coin} receive={receive} vendorField={vendorField} />
           </div>
           : null
         }
@@ -147,6 +152,7 @@ class ContractForm extends Component {
 }
 
 ContractForm.propTypes = {
+  channel: PropTypes.string,
   coin: PropTypes.string,
 };
 

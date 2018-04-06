@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ArkQrCode from 'ark-qrcode-react';
+import { QRCode } from 'react-qr-svg';
 import CopyToClipboard from 'react-copy-to-clipboard';
 
 import 'mdbootstrap/css/bootstrap.css';
@@ -13,14 +13,18 @@ class Contract extends Component {
     const {
       address = '',
       amount = 0,
+      channel = '',
       coin = '',
       receive = 0,
       vendorField = '',
     } = this.props;
 
+    const optionalVendorField = (vendorField !== '') ? `&vendorField=${vendorField}` : '';
+    const aipAddress = `${channel}:${address}?&amount=${amount}${optionalVendorField}`;
+
     return (
       (coin !== '') ?
-        <div className="col-md-6 offset-md-3 mb-4 text-center">
+        <div className="col-sm-12 mb-4 text-center">
           <div className="card">
             <div className="card-body">
               <div className="avatar mx-auto white">
@@ -30,19 +34,19 @@ class Contract extends Component {
                 <h3 className="card-title">{`Receive ${receive} ${coin}`}</h3>
                 <hr />
                   <div className="md-form ml-0 mr-0">
-                    <a href={`ark:${address}?&amount=${amount}&vendorField=${vendorField}`}>
-                      <ArkQrCode
-                        address={address}
-                        amount={amount}
-                        label=""
-                        showLogo={true}
-                        size={200}
-                        vendorField={vendorField} />
+                    <a href={aipAddress}>
+
+                    <QRCode
+                      level="Q"
+                      style={{ width: 256 }}
+                      value={aipAddress}
+                    />
+
                     </a>
 
                     <div className="text-left">
                       <div className="list-group list-group-flush">
-                        <p className="list-group-item"><b>Send {amount} Ark to:</b></p>
+                        <p className="list-group-item"><b>{`Send ${amount} ${channel} to:`}</b></p>
                         <span className="list-group-item">
                           <CopyToClipboard text={address}>
                             <span>
@@ -55,19 +59,26 @@ class Contract extends Component {
                           </CopyToClipboard>
                           <span>{address}</span>
                         </span>
-                        <p className="list-group-item"><b>With this Smartbridge text:</b></p>
-                        <span className="list-group-item">
-                          <CopyToClipboard text={vendorField}>
-                            <span>
-                              <span className="badge badge-success waves-effect badge-pill pull-right">
-                                <i className="fa fa-clipboard p-1">
-                                  <span className="sr-only">Copy Send Address to Clipboard</span>
-                                </i>
+
+                        {
+                          (vendorField !== '') ?
+                            <div>
+                              <p className="list-group-item"><b>With this Smartbridge text:</b></p>
+                              <span className="list-group-item">
+                                <CopyToClipboard text={vendorField}>
+                                  <span>
+                                    <span className="badge badge-success waves-effect badge-pill pull-right">
+                                      <i className="fa fa-clipboard p-1">
+                                        <span className="sr-only">Copy Send Address to Clipboard</span>
+                                      </i>
+                                    </span>
+                                  </span>
+                                </CopyToClipboard>
+                                <span>{vendorField}</span>
                               </span>
-                            </span>
-                          </CopyToClipboard>
-                          <span>{vendorField}</span>
-                        </span>
+                            </div>
+                           : null
+                        }
                       </div>
                     </div>
                   </div>
@@ -83,6 +94,7 @@ class Contract extends Component {
 Contract.propTypes = {
   address: PropTypes.string,
   amount: PropTypes.number,
+  channel: PropTypes.string,
   coin: PropTypes.string,
   receive: PropTypes.number,
   vendorField: PropTypes.string,

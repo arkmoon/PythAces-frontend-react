@@ -14,6 +14,7 @@ class App extends Component {
     this.state = {
       capacity: {},
       contracts: [],
+      channel: '',
       coin: '',
       contractForm: {},
       fees: {
@@ -46,6 +47,7 @@ class App extends Component {
     axios.get(`/api/prices`)
       .then(res => {
         this.setState({
+          channel: res.data.channel,
           fees: {
             flatFee: res.data.fees.flatFee,
             percentFee: res.data.fees.percentFee,
@@ -107,7 +109,7 @@ class App extends Component {
 
               <CoinDescription coins={this.state.capacity} prices={this.state.prices} handleCoinSelect={this.handleCoinSelect} selected={this.state.coin} />
 
-              <ContractForm coin={this.state.coin} />
+              <ContractForm channel={this.state.channel} coin={this.state.coin} />
 
               <Pending />
             </div>
