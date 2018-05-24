@@ -46,7 +46,7 @@ class App extends Component {
   }
 
   getPrices = () => {
-    axios.get(`//${apiUrl}/api/prices`)
+    axios.get(`${apiUrl}/api/prices`)
       .then(res => {
         this.setState({
           channel: res.data.channel,
@@ -62,7 +62,7 @@ class App extends Component {
   }
 
   getCapacity = () => {
-    axios.get(`//${apiUrl}/api/capacity`)
+    axios.get(`${apiUrl}/api/capacity`)
       .then(res => {
         this.setState({
           capacity: res.data,

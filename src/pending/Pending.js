@@ -45,7 +45,7 @@ class Pending extends Component {
   }
 
   getContracts = () => {
-    axios.get(`//${apiUrl}/api/contracts`)
+    axios.get(`${apiUrl}/api/contracts`)
       .then(res => {
         this.setState({
           contracts: res.data,
