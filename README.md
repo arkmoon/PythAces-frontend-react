@@ -13,14 +13,18 @@ yarn install
 ```
 ## Configuration & Usage
 
+Set your API URL for development.
+
 Local development:
 ```sh
-yarn start
+REACT_APP_API_HOST=your-url.com yarn start
 ```
+
+Set your API endpoint URL like this during a build.
 
 Production build:
 ```sh
-yarn build
+REACT_APP_API_HOST=your-url.com yarn build
 ```
 
 ## To Do

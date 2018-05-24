@@ -7,7 +7,7 @@ import './App.css';
 import 'mdbootstrap/css/bootstrap.css';
 import 'mdbootstrap/css/mdb.css';
 
-const apiUrl = (process.env.REACT_APP_API_HOST !== undefined) ? process.env.REACT_APP_API_HOST : 'pythaces.delegate-goose.biz';
+const apiUrl = (process.env.REACT_APP_API_HOST !== undefined) ? `//${process.env.REACT_APP_API_HOST}` : '';
 
 class App extends Component {
   constructor(props) {

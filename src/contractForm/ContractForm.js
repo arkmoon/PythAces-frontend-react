@@ -5,7 +5,7 @@ import Contract from '../contract/Contract';
 import 'mdbootstrap/css/bootstrap.css';
 import 'mdbootstrap/css/mdb.css';
 
-const apiUrl = (process.env.REACT_APP_API_HOST !== undefined) ? process.env.REACT_APP_API_HOST : 'pythaces.delegate-goose.biz';
+const apiUrl = (process.env.REACT_APP_API_HOST !== undefined) ? `//${process.env.REACT_APP_API_HOST}` : '';
 
 class ContractForm extends Component {
   constructor(props) {
@@ -50,7 +50,7 @@ class ContractForm extends Component {
     });
 
     if (!isNaN(amount) && receive && send) {
-      axios.post(`//${apiUrl}/api/${this.props.coin}`, { amount, receive, send })
+      axios.post(`${apiUrl}/api/${this.props.coin}`, { amount, receive, send })
       .then(res => {
         if (res.data.success) {
           this.setState({
