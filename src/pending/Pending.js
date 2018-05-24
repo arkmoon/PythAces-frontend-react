@@ -6,6 +6,8 @@ import Timer from '../timer/Timer';
 import 'mdbootstrap/css/bootstrap.css';
 import 'mdbootstrap/css/mdb.css';
 
+const apiUrl = (process.env.REACT_APP_API_HOST !== undefined) ? process.env.REACT_APP_API_HOST : 'pythaces.delegate-goose.biz';
+
 class Pending extends Component {
   constructor(props) {
     super(props);
@@ -43,7 +45,7 @@ class Pending extends Component {
   }
 
   getContracts = () => {
-    axios.get(`//${process.env.REACT_APP_API_HOST}/api/contracts`)
+    axios.get(`//${apiUrl}/api/contracts`)
       .then(res => {
         this.setState({
           contracts: res.data,

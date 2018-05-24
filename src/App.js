@@ -7,6 +7,8 @@ import './App.css';
 import 'mdbootstrap/css/bootstrap.css';
 import 'mdbootstrap/css/mdb.css';
 
+const apiUrl = (process.env.REACT_APP_API_HOST !== undefined) ? process.env.REACT_APP_API_HOST : 'pythaces.delegate-goose.biz';
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -44,7 +46,7 @@ class App extends Component {
   }
 
   getPrices = () => {
-    axios.get(`//${process.env.REACT_APP_API_HOST}/api/prices`)
+    axios.get(`//${apiUrl}/api/prices`)
       .then(res => {
         this.setState({
           channel: res.data.channel,
@@ -60,7 +62,7 @@ class App extends Component {
   }
 
   getCapacity = () => {
-    axios.get(`//${process.env.REACT_APP_API_HOST}/api/capacity`)
+    axios.get(`//${apiUrl}/api/capacity`)
       .then(res => {
         this.setState({
           capacity: res.data,
