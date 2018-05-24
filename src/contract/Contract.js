@@ -27,8 +27,8 @@ class Contract extends Component {
         <div className="col-sm-12 mb-4 text-center">
           <div className="card">
             <div className="card-body">
-              <div className="avatar mx-auto white">
-                <img src={`/img/${coin}-logo.png`} className="rounded-circle img-responsive" alt={`${coin} logo`} />
+              <div className="avatar white">
+                <img src={`/img/${coin}-logo.png`} className="img-responsive mx-auto contract-logo" alt={`${coin} logo`} />
               </div>
               <div className="card-body">
                 <h3 className="card-title">{`Receive ${receive} ${coin}`}</h3>

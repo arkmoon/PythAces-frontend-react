@@ -38,13 +38,13 @@ class App extends Component {
     });
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getPrices();
     this.getCapacity();
   }
 
   getPrices = () => {
-    axios.get(`/api/prices`)
+    axios.get(`//${process.env.REACT_APP_API_HOST}/api/prices`)
       .then(res => {
         this.setState({
           channel: res.data.channel,
@@ -60,7 +60,7 @@ class App extends Component {
   }
 
   getCapacity = () => {
-    axios.get(`/api/capacity`)
+    axios.get(`//${process.env.REACT_APP_API_HOST}/api/capacity`)
       .then(res => {
         this.setState({
           capacity: res.data,

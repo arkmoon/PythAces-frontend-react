@@ -1,3 +1,11 @@
+img {
+  max-width: 100%;
+}
+
+.contract-logo {
+  max-width: 10rem;
+}
+
 .full-page-intro {
   background-image: url("/img/background.png");
   background-repeat: no-repeat;

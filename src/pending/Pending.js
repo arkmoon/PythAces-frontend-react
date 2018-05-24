@@ -24,7 +24,7 @@ class Pending extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getContracts();
   }
 
@@ -43,7 +43,7 @@ class Pending extends Component {
   }
 
   getContracts = () => {
-    axios.get(`/api/contracts`)
+    axios.get(`//${process.env.REACT_APP_API_HOST}/api/contracts`)
       .then(res => {
         this.setState({
           contracts: res.data,
