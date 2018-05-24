@@ -21,6 +21,7 @@ class Pending extends Component {
         receivingAmount: 0,
         sendingAddress: '',
         sendingAmount: 0,
+        serviceAccount: '',
         vendorField: '',
       }
     }
@@ -39,6 +40,7 @@ class Pending extends Component {
         receivingAmount: contract.receivingAmount,
         sendingAddress: contract.sendingAddress,
         sendingAmount: contract.sendingAmount,
+        serviceAccount: contract.serviceAccount,
         vendorField: contract.contract,
       }
     });
@@ -93,7 +95,7 @@ class Pending extends Component {
                 </div>
                 <div className="modal-body text-center">
                   <Contract
-                    address={this.state.contract.sendingAddress}
+                    address={this.state.contract.serviceAccount}
                     amount={this.state.contract.sendingAmount}
                     channel={this.state.contract.channel}
                     coin={this.state.contract.coin}
