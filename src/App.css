@@ -6,6 +6,19 @@ img {
   max-width: 10rem;
 }
 
+.mobile-label {
+  display: none;
+  font-weight: bold;
+}
+
+.truncate {
+  overflow: hidden;
+  position: relative;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 50%;
+}
+
 .full-page-intro {
   background-image: url("/img/background.png");
   background-repeat: no-repeat;
@@ -31,6 +44,9 @@ img {
   margin: 0 0 0 1rem;
 }
 
+/* RESPONSIVE CSS
+-------------------------------------------------- */
+
 @media only screen and (max-width: 767px) {
  .full-page-intro {
     min-height: 'auto';
@@ -38,5 +54,20 @@ img {
 
   .full-page-container {
     margin: 3rem 0 0;
+  }
+}
+
+
+@media (max-width: 90em) {
+  .table th,
+  .table td {
+    clear: both;
+    display: block;
+  }
+  .table thead {
+    display: none;
+  }
+  .mobile-label {
+    display: block;
   }
 }

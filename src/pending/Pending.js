@@ -64,15 +64,20 @@ class Pending extends Component {
       return (
         <tr key={contract.contract}>
           <th scope="row">
+            <span className="mobile-label">Sending Address:</span>
             <button
               aria-label={`Show contract for ${contract.sendingAddress}`}
-              className="btn btn-primary btn-small"
+              className="btn btn-primary btn-small truncate"
               data-toggle="modal"
               data-target="#contractModal"
               onClick={() => {this.showContract(contract);}}>{contract.sendingAddress}</button>
           </th>
-          <td>{contract.contractStatus}</td>
           <td>
+            <span className="mobile-label">Status:</span>
+            {contract.contractStatus}
+          </td>
+          <td>
+            <span className="mobile-label">Time Left:</span>
             {
               (contract.contractStatus !== 'Processed') ? <Timer created={contract.createdOnTimestamp} /> : 'N/A'
             }
