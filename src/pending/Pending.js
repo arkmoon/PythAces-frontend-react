@@ -17,6 +17,8 @@ class Pending extends Component {
       contract: {
         channel: '',
         coin: '',
+        contractStatus: '',
+        createdOnTimestamp: 0,
         receivingAddress: '',
         receivingAmount: 0,
         sendingAddress: '',
@@ -36,6 +38,8 @@ class Pending extends Component {
       contract: {
         channel: contract.channel,
         coin: contract.coin,
+        contractStatus: contract.contractStatus,
+        createdOnTimestamp: contract.createdOnTimestamp,
         receivingAddress: contract.receivingAddress,
         receivingAmount: contract.receivingAmount,
         sendingAddress: contract.sendingAddress,
@@ -104,6 +108,8 @@ class Pending extends Component {
                     amount={this.state.contract.sendingAmount}
                     channel={this.state.contract.channel}
                     coin={this.state.contract.coin}
+                    contractStatus={this.state.contract.contractStatus}
+                    createdOnTimestamp={this.state.contract.createdOnTimestamp}
                     receive={this.state.contract.receivingAmount}
                     vendorField={this.state.contract.vendorField}
                   />

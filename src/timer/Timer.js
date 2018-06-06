@@ -1,66 +1,59 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import 'mdbootstrap/css/bootstrap.css';
-import 'mdbootstrap/css/mdb.css';
+import moment from 'moment';
 
 class Timer extends Component {
-  constructor(props) {
-    super(props);
-
-    // Calculate time left until this expires - 15 minutes.
-    const seconds = !isNaN(props.created) ? ((props.created + (15 * 60)) - (new Date() / 1000)) : 1;
-
-    this.state = {
-      seconds: seconds,
-      time: {},
-    };
+  state = {
+    milliseconds: 0,
+    time: {}
   }
 
-  secondsToTime = secs => {
-    const hours = Math.floor(secs / (60 * 60));
-
-    const divisor_for_minutes = secs % (60 * 60);
-    const minutes = Math.floor(divisor_for_minutes / 60);
-
-    const divisor_for_seconds = divisor_for_minutes % 60;
-    const seconds = Math.ceil(divisor_for_seconds);
-
-    const obj = {
-      'h': hours,
-      'm': minutes,
-      's': seconds
-    };
-    return obj;
+  startTimer = () => {
+    this.timer = setInterval(this.countDown, 1000);
   }
 
   componentDidMount() {
-    const timeLeftVar = this.secondsToTime(this.state.seconds);
-    this.setState({ time: timeLeftVar });
+    const seconds = !isNaN(this.props.created) ? ((this.props.created + (15 * 60)) - (new Date() / 1000)) : 1;
 
-    this.timer = setInterval(this.countDown, 1000);
+    this.setState({
+      seconds,
+    }, () => {
+      // Don't start the timer until the time has been set.
+      this.startTimer();
+    });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
   }
 
   countDown = () => {
     // Remove one second, set state so a re-render happens.
     const seconds = this.state.seconds - 1;
+
     this.setState({
-      time: this.secondsToTime(seconds),
+      time: moment(moment.duration(seconds * 1000, 'seconds').asSeconds()).format('mm[m]:ss[s]'),
       seconds: seconds,
     });
 
     // Check if we're at zero.
     if (seconds <= 0) {
       clearInterval(this.timer);
+      // Send a failure to pay alert to the parent.
+      // this.props.handleExpired(true);
+    } else {
+      // this.props.handleExpired(false);
     }
   }
 
   render() {
+    const countdown = (typeof this.state.time !== 'object') ? this.state.time : '';
     return(
-      <div>
+      <p>
         {
-          (this.state.seconds > 0) ? `m: ${this.state.time.m} s: ${this.state.time.s}` : 'Expired'
+          (this.state.seconds > 0) ? `${countdown}` : 'Expired!'
         }
-      </div>
+      </p>
     );
   }
 }

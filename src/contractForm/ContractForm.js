@@ -18,6 +18,7 @@ class ContractForm extends Component {
         address: '',
         amount: 0,
         channel: '',
+        createdOnTimestamp: 0,
         receive: 0,
         showContract: false,
         vendorField: '',
@@ -60,6 +61,7 @@ class ContractForm extends Component {
               address: res.data.address,
               amount: res.data.amount,
               channel: res.data.channel,
+              createdOnTimestamp: res.data.createdOnTimestamp,
               receive: res.data.receive,
               showContract: true,
               vendorField: res.data.vendorField,
@@ -73,6 +75,7 @@ class ContractForm extends Component {
               address: '',
               amount: 0,
               channel: '',
+              createdOnTimestamp: 0,
               receive: 0,
               showContract: false,
               vendorField: '',
@@ -90,7 +93,14 @@ class ContractForm extends Component {
   render() {
     const { channel = '', coin = '' } = this.props;
     const { disableSubmit = false, error = '' } = this.state;
-    const { showContract, address, amount, receive, vendorField } = this.state.contract;
+    const {
+      address,
+      amount,
+      createdOnTimestamp,
+      receive,
+      showContract,
+      vendorField,
+    } = this.state.contract;
 
     return (
       <div>
@@ -144,7 +154,15 @@ class ContractForm extends Component {
           showContract ?
           <div className="row">
             <h2 className="text-center col-sm-12 text-uppercase red-text py-4 px-3">Step 3: Pay Your Contract</h2>
-            <Contract address={address} amount={amount} channel={channel} coin={coin} receive={receive} vendorField={vendorField} />
+            <Contract
+              address={address}
+              amount={amount}
+              channel={channel}
+              coin={coin}
+              createdOnTimestamp={createdOnTimestamp}
+              receive={receive}
+              vendorField={vendorField}
+            />
           </div>
           : null
         }

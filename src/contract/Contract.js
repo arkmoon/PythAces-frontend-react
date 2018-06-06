@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { QRCode } from 'react-qr-svg';
 import CopyToClipboard from 'react-copy-to-clipboard';
+import Timer from '../timer/Timer';
 
 import 'mdbootstrap/css/bootstrap.css';
 import 'mdbootstrap/css/mdb.css';
@@ -15,6 +16,7 @@ class Contract extends Component {
       amount = 0,
       channel = '',
       coin = '',
+      createdOnTimestamp = 0,
       receive = 0,
       vendorField = '',
     } = this.props;
@@ -29,6 +31,10 @@ class Contract extends Component {
             <div className="card-body">
               <div className="avatar white">
                 <img src={`/img/${coin}-logo.png`} className="img-responsive mx-auto contract-logo" alt={`${coin} logo`} />
+
+                {
+                  (createdOnTimestamp) ? <div>Expires in:<br /><Timer created={createdOnTimestamp} /></div> : null
+                }
               </div>
               <div className="card-body">
                 <h3 className="card-title">{`Receive ${receive} ${coin}`}</h3>
@@ -96,6 +102,7 @@ Contract.propTypes = {
   amount: PropTypes.number,
   channel: PropTypes.string,
   coin: PropTypes.string,
+  createdOnTimestamp: PropTypes.number,
   receive: PropTypes.number,
   vendorField: PropTypes.string,
 };
