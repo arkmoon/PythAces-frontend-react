@@ -41,7 +41,7 @@ class ContractForm extends Component {
     e.preventDefault();
 
     // Amount must be a number.
-    const amount = (this.state.contractForm.amount) ? parseInt(this.state.contractForm.amount, 10) : '';
+    const amount = (this.state.contractForm.amount) ? parseFloat(this.state.contractForm.amount) : 0;
     const receive = this.state.contractForm.receive;
     const send = this.state.contractForm.send;
 
